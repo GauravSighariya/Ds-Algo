@@ -19,3 +19,21 @@ public:
 -------------------------------------------------------------------
 Binary Search
 -------------------------------------------------------------------
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int n = matrix.size(), low = matrix[0][0], high = matrix[n-1][n-1], mid, count = 0;
+        while(low<=high){
+            mid = (low+high)/2;
+            count = 0;
+            for(int i=0;i<n;i++){
+                count += upper_bound(matrix[i].begin(), matrix[i].end(), mid)-matrix[i].begin();
+            }
+            if(count>=k)
+                high = mid-1;
+            else
+                low = mid+1;
+        }
+        return low;
+    }
+};
